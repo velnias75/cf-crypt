@@ -18,4 +18,6 @@ src/cf-encode
 src/cf_decode-cf-decode.o
 src/cf_encode-cf-encode.o
 stamp-h1
+.kdev4/
+*.kdev4
 
