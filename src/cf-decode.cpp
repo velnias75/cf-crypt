@@ -15,7 +15,7 @@ struct gmp_cout_iterator : public std::iterator<std::output_iterator_tag, void, 
 		return *this;
 	}
 
-	gmp_cout_iterator &operator++(int) {
+	gmp_cout_iterator operator++(int) {
 		return *this;
 	}
 
@@ -27,7 +27,7 @@ struct gmp_cout_iterator : public std::iterator<std::output_iterator_tag, void, 
 
 int main(int, const char **) {
 
-    mpf_set_default_prec ( 65536 );
+	mpf_set_default_prec ( 65536 );
 
 	unsigned long lnr = 1u;
 
