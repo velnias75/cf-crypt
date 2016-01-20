@@ -23,6 +23,36 @@
 
 using namespace Commons::Math;
 
+template<class IIter>
+struct uchar_conv_iterator : std::iterator<std::input_iterator_tag, gmp_rational::integer_type> {
+
+    uchar_conv_iterator& operator= ( const uchar_conv_iterator& ) = delete;
+
+    uchar_conv_iterator ( IIter iter ) : iter_ ( iter ),
+        it ( static_cast<unsigned char> ( *iter_ ) ) {}
+
+    bool operator!= ( const uchar_conv_iterator &o ) const {
+        return iter_ != o.iter_;
+    }
+
+    reference operator*() {
+        return it;
+    }
+
+    uchar_conv_iterator operator++ ( int ) {
+
+        uchar_conv_iterator tmp ( *this );
+
+        it = static_cast<unsigned char> ( * ( ++iter_ ) );
+
+        return tmp;
+    }
+
+private:
+    IIter iter_;
+    gmp_rational::integer_type it;
+};
+
 int main ( int, const char ** ) {
 
     mpf_set_default_prec ( 65536 );
@@ -31,19 +61,13 @@ int main ( int, const char ** ) {
 
     try {
 
-        std::vector<gmp_rational::integer_type> cfv;
-
         for ( std::string line; std::getline ( std::cin, line ); ++lnr ) {
 
-            std::for_each ( begin ( line ), end ( line ), [&] ( unsigned char c ) {
-                cfv.push_back ( c );
-            } );
+            line.append ( 1, '\n' );
 
-            cfv.push_back ( '\n' );
-
-            std::cout << cf ( begin ( cfv ), end ( cfv ) ) << std::endl;
-
-            cfv.clear();
+            std::cout << cf ( uchar_conv_iterator<std::string::iterator> ( std::begin ( line ) ),
+                              uchar_conv_iterator<std::string::iterator> ( std::end ( line ) ) )
+                      << std::endl;
         }
 
     } catch ( const std::exception &e ) {
