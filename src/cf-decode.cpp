@@ -39,7 +39,7 @@ struct gmp_cout_iterator : public std::iterator<std::output_iterator_tag, void, 
     }
 
     gmp_cout_iterator& operator= ( const gmp_nogcd_rational::integer_type &value ) {
-        std::cout << static_cast<std::ostream::char_type> ( value.get_si() );
+        std::cout << static_cast<unsigned char> ( value.get_si() );
         return *this;
     }
 };

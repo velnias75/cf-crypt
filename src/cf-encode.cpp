@@ -35,8 +35,8 @@ int main ( int, const char ** ) {
 
         for ( std::string line; std::getline ( std::cin, line ); ++lnr ) {
 
-            std::for_each ( begin ( line ), end ( line ), [&] ( const std::string::value_type &n ) {
-                cfv.push_back ( n );
+            std::for_each ( begin ( line ), end ( line ), [&] ( unsigned char c ) {
+                cfv.push_back ( c );
             } );
 
             cfv.push_back ( '\n' );
