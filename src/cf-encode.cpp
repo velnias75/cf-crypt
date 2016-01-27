@@ -63,7 +63,7 @@ int main ( int, const char ** ) {
 
         for ( std::string line; std::getline ( std::cin, line ); ++lnr ) {
 
-            line.append ( 1, '\n' );
+            if( !std::cin.eof() ) line.append ( 1, '\n' );
 
             std::cout << cf ( uchar_conv_iterator<std::string::iterator> ( std::begin ( line ) ),
                               uchar_conv_iterator<std::string::iterator> ( std::end ( line ) ) )
