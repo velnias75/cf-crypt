@@ -23,8 +23,10 @@
 
 using namespace Commons::Math;
 
-template<class IIter>
-struct uchar_conv_iterator : std::iterator<std::input_iterator_tag, gmp_rational::integer_type> {
+typedef Rational<gmp_rational::integer_type, GCD_null, NO_OPERATOR_CHECK> gmp_nogcd_rational;
+
+template<class IIter> struct uchar_conv_iterator : std::iterator<std::input_iterator_tag,
+        gmp_nogcd_rational::integer_type> {
 
     uchar_conv_iterator& operator= ( const uchar_conv_iterator& ) = delete;
 
@@ -50,7 +52,7 @@ struct uchar_conv_iterator : std::iterator<std::input_iterator_tag, gmp_rational
 
 private:
     IIter iter_;
-    gmp_rational::integer_type it;
+    gmp_nogcd_rational::integer_type it;
 };
 
 int main ( int, const char ** ) {
@@ -63,7 +65,7 @@ int main ( int, const char ** ) {
 
         for ( std::string line; std::getline ( std::cin, line ); ++lnr ) {
 
-            if( !std::cin.eof() ) line.append ( 1, '\n' );
+            if ( !std::cin.eof() ) line.append ( 1, '\n' );
 
             std::cout << cf ( uchar_conv_iterator<std::string::iterator> ( std::begin ( line ) ),
                               uchar_conv_iterator<std::string::iterator> ( std::end ( line ) ) )
